@@ -2,10 +2,11 @@ function Monster(name, hp, attack) {
     //이름 체력 공격력
     this.name = name;
     this.hp = hp;
-    this.Fullhp = hp;
     this.attack = attack;
+    this.Fullhp = hp;
     this.exp = 100;
     this.gold = 100;
+    // this.onoff = true;
 
     this.info = function () {
 
@@ -20,11 +21,12 @@ function Character(name, hp, attack) {
     //이름 체력 공격력
     this.name = name;
     this.hp = hp;
-    this.Fullhp = hp;
     this.attack = attack;
+    this.Fullhp = hp;
     this.exp = 0;
     this.expMax = 300;
     this.gold = 0;
+    // this.onoff = true;
 
     this.info = function () {
 

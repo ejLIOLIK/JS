@@ -1,94 +1,64 @@
 //
+var enemyScreen;
 var resultScreen;
+var statusScreen;
+var inputTurn;
+
 var resultString="";
+var statusString="";
+
+var turn = 1;
+var currentMode = "전투";
+
+var orc = new Monster("ORC", 100, 50);
+var elf = new Character("KIM", 200, 50);
+
+// var room1 = new Room("연습장 입구","연습장으로 들어가는 입구다.",1000,1001,0,0,0,0,0);
+// var room2 = new Room("연습장 서쪽","연습장 서쪽이다.",1001,1002,1000,0,0,0,0);
+// var room3 = new Room("연습장 중앙","연습장 중앙이다.",1002,0,1001,0,0,0,0);
+var currentRoomId = 1002; // 플레이어 위치
+
+/* 방 배열 */
+var roomArray = [
+    new Room("연습장 입구","연습장으로 들어가는 입구다.",1000,1001,0,0,0,0,0) ,
+    new Room("연습장 서쪽","연습장 서쪽이다.",1001,1002,1000,0,0,0,0) ,
+    new Room("연습장 중앙","연습장 중앙이다.",1002,0,1001,1004,1003,1005,1006) ,
+    new Room("연습장 북쪽","연습장 북쪽이다.",1003,0,0,1002,0,0,0) ,
+    new Room("연습장 남쪽","연습장 남쪽이다.",1004,0,0,0,1002,0,0) ,
+    new Room("연습장 누각","연습장 누각이다.",1005,0,0,0,0,0,1002) ,
+    new Room("연습장 지하","연습장 지하다.",1006,0,0,0,0,1002,0)
+];
 
 window.onload = function(){
     
     //textarea로
+    enemyScreen = document.getElementById("rpg_enemy_screen"); // ***""
     resultScreen = document.getElementById("rpg_result_screen"); // ***""
-    
-    var orc = new Monster("ORC", 100, 60);
-    var elf = new Character("KIM", 200, 60);
+    statusScreen = document.getElementById("rpg_status_screen"); // ***""
+    inputTurn = document.getElementById("input_turn"); // ***""
 
-    PrintInpo(elf, orc);
-        
-
-    // 문자출력 TEST
-    // resultString = "결과출력";
-    // resultScreen.value = resultString;
+    PrintInpo(elf, orc);  
     
-    while(true){
-        Battle(elf, orc);
+}
+
+function TurnBotton(){
+
+    if(currentMode=="전투"){
         if(elf.hp<=0 || orc.hp<=0){
             BatEnd(elf, orc);
-            break;
+            turn = 0;
+        }
+        else{
+            Battle(elf, orc);
         }
     }
-
-    resultScreen.value = resultString;
-}
-//
-
-function PrintStr(str){
-    resultString = resultString + str ;
-}
-
-function Battle(char, mon){
-    
-    var Char_pA = BatAttack(char.attack);
-    var Mon_pA = BatAttack(mon.attack);
-
-    char.hp = char.hp-Mon_pA;
-    mon.hp = mon.hp-Char_pA;
-
-    PrintStr("**"+"전투 시작"+"**\n");
-
-    PrintStr(mon.name+"을/를 "+char.name+"이/가 "+Char_pA+"만큼 공격 \n");
-    PrintStr(char.name+"을/를 "+mon.name+"이/가 "+Mon_pA+"만큼 공격 \n\n")
-    
-    PrintInpo(char, mon);
-}
-function BatAttack(pATTACK){
-    pATTACK = pATTACK+1;
-    return Math.floor(Math.random()*pATTACK);
-}
-function PrintInpo(char, mon){
-    PrintStr("**STATUS** \n" + char.info() + '\n' +mon.info() + '\n\n');
-}
-function BatEnd(char, mon){
-
-    PrintStr("**전투 종료** \n");
-    
-    if (char.hp <= 0 && mon.hp <= 0) {
-        PrintStr("**무승부** \n");
+    else{
+        tv_clear();
     }
-    else if(char.hp <= 0) {
-        PrintStr("**패배** \n");
-    }
-    else if (mon.hp <= 0) {
-        char.exp = BatExpGold(char, mon);
-    }
-}
-function BatExpGold(char, mon){
 
-    var monGold=0;
+    Turn();
+    PrintInpo(elf, orc);  
 
-    char.exp = char.exp + mon.exp;
-    monGold = Math.floor(Math.random()*mon.gold)+1;
-    char.gold = char.gold + monGold; //
-
-    PrintStr("**승리** \n");
-    PrintStr(char.name+"이/가 "+char.exp+ " 경험치를 획득 \n");
-    PrintStr(char.name+"이/가 "+monGold+ " G를 획득 \n\n");
-    
-    // document.write(char.name+" 승리"); 
-    // br();
-    // document.write(char.name+"이/가 "+char.exp+ " 경험치를 획득"); 
-    // br();
-    // document.write(char.name+"이/가 "+monGold+ " G를 획득"); 
-    // br(); br();
-    
-    char.info();
-
-    return char.exp;
+    // 스크롤 제어
+    controllScoll();
 }

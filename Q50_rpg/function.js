@@ -11,6 +11,7 @@ function MonsterGetID(){
     {
         monArray[i].id = i+1;
     }
+    monsterLastIdNumber = monArray.length+1;
 }
 
 function Move(way){
@@ -26,7 +27,7 @@ function Move(way){
     case "밑": currentRoomId = roomArray[FindRoom(currentRoomId)].d; break;
     default:
     }
-    
+
     if(currentMode=="전투"){ // 도망
         
         currentMode = "대기";
@@ -37,6 +38,13 @@ function Move(way){
         }
         else {
             tv(way +"쪽으로 도망 \n");
+            roomArray[FindRoom(currentRoomId)].displayRoomInfo();
+            tv(roomArray[FindRoom(currentRoomId)].getRoomEnter());
+            Turn();
+
+            CounterMon(); 
+            if(currentMode == "전투" || currentMode == "전투가능") {
+                TurnBotton();    }
         }
     }
     else if(currentMode=="대기" || currentMode=="전투가능"){
@@ -47,23 +55,26 @@ function Move(way){
         }
         else {
             tv(way + "쪽으로 이동 \n");
+            roomArray[FindRoom(currentRoomId)].displayRoomInfo();
+            tv(roomArray[FindRoom(currentRoomId)].getRoomEnter());
+            Turn();
         }
 
-        roomArray[FindRoom(currentRoomId)].displayRoomInfo();
-        tv(roomArray[FindRoom(currentRoomId)].getRoomEnter());
-
         CounterMon();
+
+        if(currentMode == "전투" || currentMode == "전투가능") {
+            TurnBotton();    }
     }
 
-    if (currentMode == "전투" || currentMode == "전투가능") {
-        TurnBotton();
-    }
-    else{
-        Turn();
+    // if(currentMode == "전투" || currentMode == "전투가능") {
+    //     TurnBotton();    }
+
+    if(roomArray[FindRoom(currentRoomId)].roomName == "여관")
+    {
+        getHP(elf);
     }
 
     controllScoll();
-
 }
 
 function CounterMon(){
@@ -93,7 +104,6 @@ function CounterMon(){
         }
     }
 
-    NormalTurn();
     hr();
 
 }
@@ -104,29 +114,35 @@ function TurnBotton(){
     var noneMonsterArray = getCurrentRoomNoneMonsters();
     var enemy=hostileMonsterArray.length; // 적이 없으면 0, 적이 남아있으면 ++
     
+
     if(currentMode=="전투"){
-        
+
         if(enemy>0){
             Battle(elf);
         }
 
-        for(var i=0;i<hostileMonsterArray.length;i++){
-            if(hostileMonsterArray[i].hp>0){ enemy++; }
-            else{
-                tv(hostileMonsterArray[i].name+" 처치 \n");
+        for(var i=0;i<enemy;i++){
+
+            if(elf.hp<=0){ // 플레이어 사망 판정 우선
+                BatEnd(elf, hostileMonsterArray);
+                controllScoll();
+                return;
+            }
+
+            if(hostileMonsterArray[i].hp<=0){
+
+                tv(hostileMonsterArray[i].name+" 처치 \n"); // 몬스터 처치 밑 경험치, 골드 정산
                 hostileMonsterArray[i].location=0;
                 BatExpGold(elf, hostileMonsterArray[i]);
                 PrintInpo(elf, hostileMonsterArray);
                 
                 enemy--;
 
-                if(enemy==0){
+                if(enemy==0){ //
                     BatEnd(elf, hostileMonsterArray);
                 }
             }
         }
-        
-        Turn();
     }
     else if(currentMode=="전투가능"){
         PrintInpo(elf, noneMonsterArray);
@@ -138,27 +154,29 @@ function TurnBotton(){
 
 function Battle(char){
 
+    Turn();
+
     // 다수전투...
     var hostileMonsterArray = getCurrentRoomHostileMonsters();
     
-    var Char_pA ; 
+    var Char_pA = BatAttack(char.attack); 
     var Mon_pA ; //데미지 변수
     
-    for(var i=0;i<hostileMonsterArray.length;i++)
+    for(var i=0;i<hostileMonsterArray.length;i++) // 몬스터 선공
     {
-        Char_pA = BatAttack(char.attack);
         Mon_pA = BatAttack(hostileMonsterArray[i].attack);
-
         char.hp = char.hp-Mon_pA;
-        hostileMonsterArray[i].hp = hostileMonsterArray[i].hp-Char_pA;
         
-        br();
-        tv(hostileMonsterArray[i].name+"을/를 "+char.name+"이/가 "+Char_pA+"만큼 공격");
         br();
         tv(char.name+"을/를 "+hostileMonsterArray[i].name+"이/가 "+Mon_pA+"만큼 공격");
-        
-        hr();    
     }
+    
+    hostileMonsterArray[0].hp = hostileMonsterArray[0].hp-Char_pA;
+    
+    br();
+    tv(hostileMonsterArray[0].name+"을/를 "+char.name+"이/가 "+Char_pA+"만큼 공격");
+    
+    hr();    
 
     PrintInpo(char, hostileMonsterArray);
 }
@@ -198,15 +216,16 @@ function BatEnd(char, mon){
 
     tv("**BATTLE END**");
     br();
-    os_clear();
     
     if(char.hp <= 0) {
         tv("**DEPEAT**");
+        // PrintInpo(char, mon);
         currentRoomId = 0;
     }
     else{
         tv("**WIN** \n");
         hr();
+        os_clear();
     }
 }
 
@@ -230,10 +249,30 @@ function Turn(){
     console.log("현재 턴:"+turn);
     turn = turn +1;
 	input_turn.value = turn;	
-}
 
-function NormalTurn(){
-    tv("특별한 것은 보이지 않는다. \n");
+    if (turn % 10 == 0) {
+        CreatMonster();
+    }
+}
+function TurnReturn(){
+    turn = turn -1;
+} // 움직임 동결인 경우
+
+function CreatMonster() {
+
+    var newMouse; 
+    
+    if (currentRoomId == 1005) { // 플레이어가 누각에 있는 경우 지하에 몬스터 생성
+        newMouse = new Monster("쥐", 50, 15, 1006, "H"); 
+    }
+    else {
+        newMouse = new Monster("쥐", 50, 15, 1005, "H");
+    }
+
+    newMouse.id = monsterLastIdNumber + 1;
+    monsterLastIdNumber++;
+
+    monArray.push(newMouse);
 }
 
 function ObjectScreenClick(monid){
@@ -247,6 +286,5 @@ function ObjectScreenClick(monid){
 
     Battle(elf);
 
-    Turn();
     controllScoll();
 }

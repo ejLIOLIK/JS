@@ -59,7 +59,5 @@ function PrintInpo(char, mon){
 
         os(str);
     }
-    else if(currentMode=="대기"){
-        os_clear();
-    }
+
 }

@@ -23,6 +23,7 @@ function Room(roomName,desc,id,e,w,s,n,u,d){
     //방 제목, 방 설명, 연결되는 방 표시
     this.displayRoomInfo = function(){ 
         tv("현재 위치 : ["+this.roomName+"]\n");
+        tv(this.desc +"\n");
     }
 
     //
@@ -49,6 +50,7 @@ function Room(roomName,desc,id,e,w,s,n,u,d){
         enters = enters + " ] \n";
         return enters;
     }
+
 }
 
 // 매개변수 id 값을 가진 객체 id를 리턴
@@ -60,4 +62,22 @@ function FindRoom(rid) {
     }
 }
 
+function getHP(char){
 
+    const pointhp = 100;
+    var temphp = char.Fullhp - char.hp;
+
+    char.hp = char.hp+pointhp;
+
+    if(pointhp > temphp){ // fullHP 넘는 경우
+        char.hp=char.Fullhp;
+    }
+    else{
+        temphp=pointhp;
+    }
+
+    tv("1턴 소비해 HP가 " + temphp +" 만큼 회복");
+    st(char.info());
+    hr();
+    Turn(); 
+}

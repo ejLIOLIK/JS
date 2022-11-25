@@ -3,20 +3,18 @@ var enemyScreen;
 var resultScreen;
 var statusScreen;
 var inputTurn;
+var objectScreen;
 
 var resultString="";
 var statusString="";
 
 var turn = 1;
-var currentMode = "전투";
+var currentMode = "대기"; // 대기, 전투, 전투가능
 
-var orc = new Monster("ORC", 100, 50);
 var elf = new Character("KIM", 200, 50);
 
-// var room1 = new Room("연습장 입구","연습장으로 들어가는 입구다.",1000,1001,0,0,0,0,0);
-// var room2 = new Room("연습장 서쪽","연습장 서쪽이다.",1001,1002,1000,0,0,0,0);
-// var room3 = new Room("연습장 중앙","연습장 중앙이다.",1002,0,1001,0,0,0,0);
-var currentRoomId = 1002; // 플레이어 위치
+var currentRoomId = 1000; // 플레이어 위치
+var currentMon;
 
 /* 방 배열 */
 var roomArray = [
@@ -27,38 +25,24 @@ var roomArray = [
     new Room("연습장 남쪽","연습장 남쪽이다.",1004,0,0,0,1002,0,0) ,
     new Room("연습장 누각","연습장 누각이다.",1005,0,0,0,0,0,1002) ,
     new Room("연습장 지하","연습장 지하다.",1006,0,0,0,0,1002,0)
+]; 
+
+var monArray = [
+    new Monster("허수아비1",50,10,1001,"N"),
+    new Monster("허수아비2",50,10,1002,"N"),
+    new Monster("쥐1",50,15,1003,"H"),
+    new Monster("쥐2",50,15,1005,"H"), 
+    new Monster("쥐3",50,15,1005,"H"),
+    new Monster("왕쥐",100,25,1006,"H")
 ];
 
 window.onload = function(){
     
-    //textarea로
-    enemyScreen = document.getElementById("rpg_enemy_screen"); // ***""
-    resultScreen = document.getElementById("rpg_result_screen"); // ***""
-    statusScreen = document.getElementById("rpg_status_screen"); // ***""
+    objectScreen = document.getElementById("object_screen");
+    resultScreen = document.getElementById("rpg_result_screen"); 
+    statusScreen = document.getElementById("rpg_status_screen"); 
     inputTurn = document.getElementById("input_turn"); // ***""
 
-    PrintInpo(elf, orc);  
-    
+    Setting();
 }
 
-function TurnBotton(){
-
-    if(currentMode=="전투"){
-        if(elf.hp<=0 || orc.hp<=0){
-            BatEnd(elf, orc);
-            turn = 0;
-        }
-        else{
-            Battle(elf, orc);
-        }
-    }
-    else{
-        tv_clear();
-    }
-
-    Turn();
-    PrintInpo(elf, orc);  
-
-    // 스크롤 제어
-    controllScoll();
-}

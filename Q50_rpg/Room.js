@@ -23,7 +23,6 @@ function Room(roomName,desc,id,e,w,s,n,u,d){
     //방 제목, 방 설명, 연결되는 방 표시
     this.displayRoomInfo = function(){ 
         tv("현재 위치 : ["+this.roomName+"]\n");
-        br();
     }
 
     //
@@ -47,7 +46,7 @@ function Room(roomName,desc,id,e,w,s,n,u,d){
         if(d != 0){
             enters = enters + " 밑";
         }
-        enters = enters + " ]";
+        enters = enters + " ] \n";
         return enters;
     }
 }
@@ -59,7 +58,6 @@ function FindRoom(rid) {
             return i; 
         }
     }
-    
 }
 
 

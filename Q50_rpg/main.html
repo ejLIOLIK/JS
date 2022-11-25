@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
     <link rel="stylesheet" href="rpg.css">
-    <script src="D:\html_css_js\00_vsc_workspace\JS\Q\Q50_rpg\common.js"></script>
+    <script src="display.js"></script>
 	<script src="Room.js"> </script>
 	<script src="class.js"> </script>
 	<script src="function.js"> </script>
@@ -13,20 +13,21 @@
 </head>	
 <body>	
 	
-
-	<textarea id="rpg_enemy_screen" placeholder="상단"></textarea>	
+	<div id="object_screen"></div>
 	<br>
 	<textarea id="rpg_result_screen" placeholder="결과화면"></textarea>	
 	<br>
 	<textarea id="rpg_status_screen" placeholder="상태창"></textarea>
 	<input id="input_turn" value="1" readonly="readonly"><button id="turnbotton" onclick="TurnBotton();">진행</button>
+	<br>
 
-	<input type="button" value="동" onclick="Move(value);">
-	<input type="button" value="서" onclick="Move(value);">
-	<input type="button" value="남" onclick="Move(value);">
-	<input type="button" value="북" onclick="Move(value);">
-	<input type="button" value="위" onclick="Move(value);">
-	<input type="button" value="밑" onclick="Move(value);">
+	<input button class="movebotton" type="button" value="동" onclick="Move(value);">
+	<input button class="movebotton" type="button" value="서" onclick="Move(value);">
+	<input button class="movebotton" type="button" value="남" onclick="Move(value);">
+	<input button class="movebotton" type="button" value="북" onclick="Move(value);">
+	<input button class="movebotton" type="button" value="위" onclick="Move(value);">
+	<input button class="movebotton" type="button" value="밑" onclick="Move(value);">
 	
+
 </body>	
 </html>	        

@@ -9,11 +9,11 @@
 #LOGINBOX {
     display: grid;
     grid-template-columns: 100px 150px 65px;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 3px 1fr; 
 
     width: 315px;
     height: 53px;
-    padding: 3px;
+    padding: 4px;
 
     border: 0.3px solid gray;
     border-radius: 4px;
@@ -47,6 +47,8 @@
 }
 
 #NEW_ID {
-    font-size: 12px;
-    margin-left: 8px;
+    margin-left: 5px;
+    width: 60px;
+    height: 26px;
+    font-size: 11px;
 }

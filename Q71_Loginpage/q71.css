@@ -1,0 +1,52 @@
+#LAYOUT {
+    width: auto;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+#LOGINBOX {
+    display: grid;
+    grid-template-columns: 100px 150px 65px;
+    grid-template-rows: 1fr 1fr;
+
+    width: 315px;
+    height: 53px;
+    padding: 3px;
+
+    border: 0.3px solid gray;
+    border-radius: 4px;
+    background-color: rgb(233, 233, 233);
+    box-shadow: 2px 2px 1px;
+}
+
+.BOX {
+    height: 26px;
+    font-size: 14px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#ID {
+    /* width: 150px; */
+    height: 20px;
+}
+
+#PASSWORD {
+    /* width: 150px; */
+    height: 20px;
+}
+
+#LOGINBOTTON {
+    margin-left: 5px;
+    width: 60px;
+    height: 26px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+#NEW_ID {
+    font-size: 12px;
+    margin-left: 8px;
+}

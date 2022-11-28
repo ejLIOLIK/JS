@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="reg_member.css">
+    <script src="reg_member.js"> </script>
+
+</head>
+
+<body>
+
+    <div id="LAYOUT">
+        <div id="REGBOX">
+            <!-- <div class = "rBOX"> ID : </div> <div class="inputBOX"> <input ID="ID" placeholder="계정" > </div> -->
+
+
+            <div class="rBOX"> 아이디 : </div>
+            <div class="inputBOX"> <input ID="ID" type="text" minlength="6" maxlength="12" required
+                    placeholder="(6자리이상,12자리이하)"> </div>
+            <div class="rBOX"> 암호 : </div>
+            <div class="inputBOX"> <input ID="PW" type="password" minlength="6" maxlength="12"
+                    placeholder="(6자리이상,12자리이하)">
+            </div>
+            <div class="rBOX"> 암호 재입력 : </div>
+            <div class="inputBOX"> <input ID="rePW" type="password" minlength="6" maxlength="12" placeholder="비밀번호 재입력">
+            </div>
+            <div class="rBOX"> 이름 : </div>
+            <div class="inputBOX"> <input ID="NAME" minlength="2" maxlength="4" placeholder="이름"> </div>
+            <div class="rBOX"> 이메일 : </div>
+            <div class="inputBOX"> <input ID="EMAIL" type="email" minlength="6" maxlength="15" placeholder="@"> </div>
+            <div class="rBOX"> 생년월일 : </div>
+            <div class="inputBOX"> <input type="number" class="BIRTH_YEAR" id="birth_y" value="2000">
+                <select class="BIRTH_MONTH" id="birth_m">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+
+                <select class="BIRTH_DAY" id="birth_d">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                </select>
+            </div>
+            <div class="rBOX"> 성별 : </div>
+            <div class="inputBOX">
+                <input type="radio" name="sex" value="M">남성
+                <input type="radio" name="sex" value="G" checked>여성
+            </div>
+            <div class="rBOX"> 핸드폰 : </div>
+            <div class="inputBOX"> <input class="PHONENUMBER" id="phone1" placeholder="010"> 
+                <input class="PHONENUMBER" id="phone2" placeholder="0000">
+                <input class="PHONENUMBER" id="phone3" placeholder="0000">
+            </div>
+            <div></div><input id="LEGBOTTON" type="button" value="가입" onclick="LegMth();">
+        </div>
+    </div>
+</body>
+
+</html>

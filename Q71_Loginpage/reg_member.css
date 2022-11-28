@@ -1,0 +1,53 @@
+#LAYOUT {
+    width: auto;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+#REGBOX {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: repeat(9, 1fr);
+
+    width: 300px;
+    height: 270px;
+    padding: 3px;
+
+    border: 0.3px solid gray;
+    border-radius: 4px;
+}
+
+.rBOX {
+    width: 100px;
+    height: auto;
+}
+
+.inputBOX {
+    width: 200px;
+    height: auto;
+}
+
+#LEGBOTTON {
+    margin-right: 5px;
+    margin-left: auto;
+    width: 60px;
+    height: 26px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.PHONENUMBER{
+    width: 44px;
+}
+
+.BIRTH_YEAR {
+    width: 44px;
+}
+.BIRTH_MONTH {
+    width: 51px;
+}
+.BIRTH_DAY {
+    width: 51px;
+}

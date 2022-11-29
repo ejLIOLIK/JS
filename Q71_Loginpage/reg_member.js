@@ -29,12 +29,7 @@ function LegMth(){
     if(checkTxt()){
 
         str = str + "ID : " + id.value + "\nPASSWORD : " + pw.value + "\n이름 : " + input_name.value + "\ne-mail : " + email.value;
-
-        if(checkSex()=="G")
-        {str = str+"\n성별 : " + "여성";}
-        else if(checkSex()=="M")
-        {str = str+"\n성별 : " + "남성";}
-
+        str = str+checkSex();
         str = str+"\n생년월일 : " + strDate() + "\n핸드폰 : " + strPhone();
 
         alert(str);
@@ -54,15 +49,26 @@ function strPhone(){
     return str;
 }
 
-function checkSex(){ // G or M
+function checkSex(){
+    // G or M
+
     var strSex="";
+    var str="";
 
     for(var i=0;i<input_sex.length;i++){
         if(input_sex[i].checked == true){
             strSex = input_sex[i].value;
         }
     }
-    return strSex;
+
+    if(strSex=="G") { 
+        str = str + "\n성별 : " + "여성"; 
+    }
+    else if (strSex == "M") {
+        str = str + "\n성별 : " + "남성"; 
+    }
+
+    return str;
 }
 
 function checkTxt(){

@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: center;
     display: flex;
+    flex-direction: column; 
 }
 
 #LOGINBOX {
@@ -12,13 +13,22 @@
     grid-template-rows: 1fr 3px 1fr; 
 
     width: 315px;
-    height: 53px;
+    height: 60px;
     padding: 4px;
 
     border: 0.3px solid gray;
     border-radius: 4px;
     background-color: rgb(233, 233, 233);
     box-shadow: 2px 2px 1px;
+}
+
+#TIME{
+    width: 315px;
+    height: 22px;
+    font-size: 12px;
+    color: black;
+    margin-bottom: 5px;
+    text-align: right;
 }
 
 .BOX {
